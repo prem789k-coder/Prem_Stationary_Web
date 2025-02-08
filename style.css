@@ -141,3 +141,19 @@ h3 {
     width: 750px;
     object-fit: cover;
 }
+
+.logout-btn {
+    background: #19581c;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    align-items: center;
+    padding: 15px;
+    font-size: 15px;
+    position: absolute;
+}
+.logout-btn:hover {
+    background: #c82333;
+}

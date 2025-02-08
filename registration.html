@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: scale(1.05);
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        input:focus {
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        .toggle {
+            cursor: pointer;
+            color: blue;
+            margin-top: 10px;
+            transition: color 0.3s ease-in-out;
+        }
+        .toggle:hover {
+            color: darkblue;
+        }
+        .fade {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .fade.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container fade show" id="authContainer">
+        <h2 id="formTitle">Register</h2>
+        <form id="authForm">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            <input type="number" id="number" placeholder="Mobile Number" required>
+            <p class="error" id="errorMessage"></p>
+            <button type="submit">Register</button>
+        </form>
+        <p class="toggle" onclick="toggleForm()">Already have an account? Sign In</p>
+    </div>
+    <script>
+        function toggleForm() {
+            let formTitle = document.getElementById("formTitle");
+            let nameField = document.getElementById("name");
+            let confirmPasswordField = document.getElementById("confirmPassword");
+            let numberField = document.getElementById("number");
+            let button = document.querySelector("button");
+            let toggleText = document.querySelector(".toggle");
+            let container = document.getElementById("authContainer");
+            
+            container.classList.remove("show");
+            setTimeout(() => {
+                if (formTitle.textContent === "Register") {
+                    formTitle.textContent = "Sign In";
+                    nameField.style.display = "none";
+                    numberField.style.display = "none";
+                    confirmPasswordField.style.display = "none";
+                    button.textContent = "Sign In";
+                    toggleText.textContent = "Don't have an account? Register";
+                } else {
+                    formTitle.textContent = "Register";
+                    nameField.style.display = "block";
+                    confirmPasswordField.style.display = "block";
+                    numberField.style.display = "block";
+                    button.textContent = "Register";
+                    toggleText.textContent = "Already have an account? Sign In";
+                }
+                container.classList.add("show");
+            }, 300);
+        }
+        
+        document.getElementById("authForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let formTitle = document.getElementById("formTitle").textContent;
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let errorMessage = document.getElementById("errorMessage");
+            
+            if (formTitle === "Register") {
+                let name = document.getElementById("name").value;
+                let confirmPassword = document.getElementById("confirmPassword").value;
+                
+                if (password !== confirmPassword) {
+                    errorMessage.textContent = "Passwords do not match";
+                    return;
+                }
+                
+                errorMessage.textContent = "";
+                alert("Registration successful! Name: " + name + ", Email: " + email);
+                window.location.href = "index.html";
+            } else {
+                alert("Sign in successful! Email: " + email);
+                window.location.href = "index.html";
+            }
+            document.getElementById("authForm").reset();
+        });
+    </script>
+</body>
+</html>

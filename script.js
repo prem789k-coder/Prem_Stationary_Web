@@ -48,3 +48,11 @@ document.querySelectorAll('.product-container img').forEach(image => {
 document.querySelector('.popup-image span').onclick = () => {
     document.querySelector('.popup-image').style.display = 'none';
 }
+
+function logout() {
+    let confirmLogout = confirm("Are you sure you want to log out?");
+    if (confirmLogout) {
+        alert("You have been logged out.");
+        window.location.href = "registration.html";
+    }
+}
